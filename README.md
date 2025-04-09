@@ -78,7 +78,7 @@ yarn build
 
 #### Поля класса:
 
-- `protected payment: PaymentMethod` - способ оплаты
+- `protected payment: string` - способ оплаты
 - `protected email: string` - адрес электронной почты
 - `protected phone: string` - номер телефона
 - `protected address: string` - адрес доставки
@@ -151,6 +151,9 @@ yarn build
 - `setEmail(email: string): void` - задает адрес электронной почты
 - `getPhone(): string` - возвращает номер телефона
 - `setPhone(phone: string): void` - задает номер телефона
+- `validateEmail(email: string): boolean` - проверяет корректность адреса электронной почты.
+- `validatePhone(phone: string): boolean` - проверяет корректность номера телефона.
+- `validateAddress(address: string): boolean` - проверяет корректность адреса доставки, например длина не меньше определенного значения.
 
 ## Представления (Слой представлений)
 
