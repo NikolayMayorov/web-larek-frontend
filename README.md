@@ -60,45 +60,37 @@ title: string
 category: string
 price: number | null
 
-- `id: string` - уникальный идентификатор товара.
-- `description: string` - подробное текстовое описание товара.
-- `image: string` - путь или URL к изображению товара.
-
-- `title: string`  
-  Название товара.
-
-- `category: string`  
-  Категория, к которой относится товар.
-
-- `price: number | null`  
-  Цена товара. Может быть `null`, если цена отсутствует или ещё не задана.
+`id: string` - уникальный идентификатор товара.
+`description: string` - подробное текстовое описание товара.
+`image: string` - путь или URL к изображению товара.
+`title: string` - название товара.
+`category: string` - категория, к которой относится товар.
+`price: number | null` - цена товара.
 
 ## Модели данных (Слой данных)
 
 1. Класс CatalogModel
    Определяет список всех товаров.
    Конструктор не принимает аргументы.
-
-   - Класс имеет такие методы:
-     getProduct(id: string): IProduct | undefined - получение товара по id
-     getProducts(): IProduct[] - получение массива всех товаров
-     setProducts(products: IProduct[]) - задает массив товаров
-   - Класс имеет такие поля:
-     protected products: IProduct[] - массив товаров
+   Методы класса:
+   `getProduct(id: string): IProduct | undefined` - получение товара по id
+   `getProducts(): IProduct[]` - получение массива всех товаров
+   `setProducts(products: IProduct[])` - задает массив товаров
+   Поля класса:
+   `protected products: IProduct[]` - массив товаров
 
 2. Класс BasketModel
    Определяет состояние и методы корзины.
    Конструктор не принимает аргументы.
-
-   - Класс имеет такие методы:
-     addProduct(product: IProduct): void - добавляет товар в корзину.
-     removeProduct(product: IProduct): void - удаляет товар из корзины.
-     getProducts(): IProduct[] - возвращает массив товаров в корзине.
-     getProductCount(): number - возвращает общее количество товаров в корзине.
-     getTotalPrice(): number - возвращает общую стоимость всех товаров в корзине.
-     clearBasket(): void - очищает массив товаров в корзине.
-   - Класс имеет такие поля:
-     protected products: IProduct[] - массив товаров в корзине.
+   Методы класса:
+   `addProduct(product: IProduct): void` - добавляет товар в корзину.
+   `removeProduct(product: IProduct): void` - удаляет товар из корзины.
+   `getProducts(): IProduct[]` - возвращает массив товаров в корзине.
+   `getProductCount(): number` - возвращает общее количество товаров в корзине.
+   `getTotalPrice(): number` - возвращает общую стоимость всех товаров в корзине.
+   `clearBasket(): void` - очищает массив товаров в корзине.
+   Поля класса:
+   `protected products: IProduct[]` - массив товаров в корзине.
 
 3. Класс OrderDetailModel
    Определяет параметры для оформления заказа.
