@@ -57,19 +57,43 @@ yarn build
 
 #### Поля интерфейса:
 
-- `id: string` - уникальный идентификатор товара.
-- `description: string` - подробное текстовое описание товара.
-- `image: string` - путь или URL к изображению товара.
-- `title: string` - название товара.
-- `category: string` - категория, к которой относится товар.
-- `price: number | null` - цена товара.
+- `id: string` - уникальный идентификатор товара
+- `description: string` - подробное текстовое описание товара
+- `image: string` - путь или URL к изображению товара
+- `title: string` - название товара
+- `category: string` - категория, к которой относится товар
+- `price: number | null` - цена товара
 
 ### Перечисление PaymentMethod.
 
 Определяет доступные способы оплаты:
 
-- `Card` - оплата картой.
-- `Cash` - оплата наличными.
+- `Card` - оплата картой
+- `Cash` - оплата наличными
+
+### Класс Order.
+
+Определяет объект заказа для отправки.
+Конструктор принимает все поля класса в качестве аргументов и инициализирует их.
+
+#### Поля класса:
+
+- `protected payment: PaymentMethod` - способ оплаты
+- `protected email: string` - адрес электронной почты
+- `protected phone: string` - номер телефона
+- `protected address: string` - адрес доставки
+- `protected total: number` - общая стоимость всех товаров в заказе
+- `protected items: string[]` - массив идентификаторов товара
+
+#### Методы класса:
+
+- `setPayment(payment: string): void` - задает способ оплаты
+- `setEmail(email: string): void` - задает адрес электронной почты
+- `setPhone(phone: string): void` - задает номер телефона
+- `setAddress(address: string): void` - задает адрес доставки
+- `setTotal(total: number): void` - задает общую стоимость заказа
+- `setItems(items: string[]): void` - задает массив идентификаторов товаров
+- `getOrderDetails(): object` - возвращает объект с деталями заказа
 
 ## Модели данных (Слой данных)
 
@@ -84,8 +108,8 @@ yarn build
 
 #### Методы класса:
 
-- `getProduct(id: string): IProduct | undefined` - получение товара по id
-- `getProducts(): IProduct[]` - получение массива всех товаров
+- `getProduct(id: string): IProduct | undefined` - возвращает товар по id
+- `getProducts(): IProduct[]` - возвращает массив всех товаров
 - `setProducts(products: IProduct[])` - задает массив товаров
 
 ### 2. Класс BasketModel
@@ -95,16 +119,16 @@ yarn build
 
 #### Поля класса:
 
-- `protected products: IProduct[]` - массив товаров в корзине.
+- `protected products: IProduct[]` - массив товаров в корзине
 
 #### Методы класса:
 
-- `addProduct(product: IProduct): void` - добавляет товар в корзину.
-- `removeProduct(product: IProduct): void` - удаляет товар из корзины.
-- `getProducts(): IProduct[]` - возвращает массив товаров в корзине.
-- `getProductCount(): number` - возвращает общее количество товаров в корзине.
-- `getTotalPrice(): number` - возвращает общую стоимость всех товаров в корзине.
-- `clearBasket(): void` - очищает массив товаров в корзине.
+- `addProduct(product: IProduct): void` - добавляет товар в корзину
+- `removeProduct(product: IProduct): void` - удаляет товар из корзины
+- `getProducts(): IProduct[]` - возвращает массив товаров в корзине
+- `getProductCount(): number` - возвращает общее количество товаров в корзине
+- `getTotalPrice(): number` - возвращает общую стоимость всех товаров в корзине
+- `clearBasket(): void` - очищает массив товаров в корзине
 
 ### 3. Класс OrderDetailModel
 
@@ -112,21 +136,21 @@ yarn build
 
 #### Поля класса:
 
-- `paymentMethod: string` - способ оплаты (например, "credit card", "PayPal", "cash")
-- `address: string` - адрес доставки (строка с максимальной длиной 255 символов).
-- `email: string` - адрес электронной почты (должен быть в формате действительного адреса электронной почты).
-- `phone: string` - номер телефона (должен быть в формате "+<код страны><номер>", например, "+1234567890").
+- `protected paymentMethod: PaymentMethod` - способ оплаты
+- `protected address: string` - адрес доставки.
+- `protected email: string` - адрес электронной почты
+- `protected phone: string` - номер телефона
 
 #### Методы класса:
 
-- `getPaymentMethod(): string` - возвращает способ оплаты.
-- `setPaymentMethod(method: string): void` - задает способ оплаты.
-- `getAddress(): string - возвращает адрес` доставки.
-- `setAddress(address: string): void` - задает адрес доставки.
-- `getEmail(): string` - возвращает адрес электронной почты.
-- `setEmail(email: string): void` - задает адрес электронной почты.
-- `getPhone(): string` - возвращает номер телефона.
-- `setPhone(phone: string): void` - задает номер телефона.
+- `getPaymentMethod(): PaymentMethod` - возвращает способ оплаты
+- `setPaymentMethod(method: PaymentMethod): void` - задает способ оплаты
+- `getAddress(): string` - возвращает адрес доставки
+- `setAddress(address: string): void` - задает адрес доставки
+- `getEmail(): string` - возвращает адрес электронной почты
+- `setEmail(email: string): void` - задает адрес электронной почты
+- `getPhone(): string` - возвращает номер телефона
+- `setPhone(phone: string): void` - задает номер телефона
 
 ## Представления (Слой представлений)
 
