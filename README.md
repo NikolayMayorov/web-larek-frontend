@@ -63,31 +63,51 @@ price: number | null
 
 1. Класс CatalogModel
    Определяет список всех товаров.
-   Конструктор принимает такие аргументы:
-   IProduct[]
+   Конструктор не принимает аргументы.
+
    - Класс имеет такие методы:
-     getProduct - получение товара по id
-     getProducts - получение массива всех товаров
+     getProduct(id: string): IProduct | undefined - получение товара по id
+     getProducts(): IProduct[] - получение массива всех товаров
+     setProducts(products: IProduct[]) - задает массив товаров
    - Класс имеет такие поля:
-     products - массив объектов IProduct[]
+     protected products: IProduct[] - массив товаров
+
 2. Класс BasketModel
    Определяет состояние и методы корзины.
+   Конструктор не принимает аргументы.
+
    - Класс имеет такие методы:
-     addProduct, removeProduct, getProducts - добавление, удаление и получение товаров
-     getProductCount, getTotalPrice - получения кол-ва товаров и общей стоимости товаров
+     addProduct(product: IProduct): void - добавляет товар в корзину.
+     removeProduct(product: IProduct): void - удаляет товар из корзины.
+     getProducts(): IProduct[] - возвращает массив товаров в корзине.
+     getProductCount(): number - возвращает общее количество товаров в корзине.
+     getTotalPrice(): number - возвращает общую стоимость всех товаров в корзине.
+     clearBasket(): void - очищает массив товаров в корзине.
    - Класс имеет такие поля:
-     products - массив товаров и их кол-во, структура Map<IProduct, number>
+     protected products: IProduct[] - массив товаров в корзине.
+
 3. Класс OrderDetailModel
    Определяет параметры для оформления заказа.
    - Класс имеет такие методы:
-     addProduct, removeProduct, getProducts - добавление, удаление и получение товаров
-     getProductCount, getTotalPrice - получения кол-ва товаров и общей стоимости товаров
+     - `addProduct(product: IProduct): void` - добавляет товар в заказ.
+     - `removeProduct(product: IProduct): void` - удаляет товар из заказа.
+     - `getProducts(): IProduct[]` - возвращает массив товаров в заказе.
+     - `getProductCount(): number` - возвращает общее количество товаров в заказе.
+     - `getTotalPrice(): number` - возвращает общую стоимость всех товаров в заказе.
    - Класс имеет такие поля:
-     \_paymentMethod - способ оплаты
-     \_address - адрес доставки
-     \_email - адрес электронной почты
-     \_phone - номер телефона
-     Доступ к поля класса осуществляется через геттеры и сеттеры.
+     \_paymentMethod: string - способ оплаты (например, "credit card", "PayPal", "cash")
+     - `_address: string` - адрес доставки (строка с максимальной длиной 255 символов).
+     - `_email: string` - адрес электронной почты (должен быть в формате действительного адреса электронной почты).
+     - `_phone: string` - номер телефона (должен быть в формате "+<код страны><номер>", например, "+1234567890").
+       Доступ к полям класса осуществляется через геттеры и сеттеры:
+     - getPaymentMethod(): string - возвращает способ оплаты.
+     - setPaymentMethod(method: string): void - задает способ оплаты.
+     - getAddress(): string - возвращает адрес доставки.
+     - setAddress(address: string): void - задает адрес доставки.
+     - getEmail(): string - возвращает адрес электронной почты.
+     - setEmail(email: string): void - задает адрес электронной почты.
+     - getPhone(): string - возвращает номер телефона.
+     - setPhone(phone: string): void - задает номер телефона.
 
 ## Представления (Слой представлений)
 
