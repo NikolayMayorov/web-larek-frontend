@@ -51,21 +51,25 @@ yarn build
 
 ## Ключевые типы данных
 
-Интерфейс IProduct. Определяет свойства товара.
-Имеет поля:
-id: string
-description: string
-image: string
-title: string
-category: string
-price: number | null
+### Интерфейс IProduct.
 
-`id: string` - уникальный идентификатор товара.
-`description: string` - подробное текстовое описание товара.
-`image: string` - путь или URL к изображению товара.
-`title: string` - название товара.
-`category: string` - категория, к которой относится товар.
-`price: number | null` - цена товара.
+Определяет свойства товара.
+
+#### Поля интерфейса:
+
+- `id: string` - уникальный идентификатор товара.
+- `description: string` - подробное текстовое описание товара.
+- `image: string` - путь или URL к изображению товара.
+- `title: string` - название товара.
+- `category: string` - категория, к которой относится товар.
+- `price: number | null` - цена товара.
+
+### Перечисление PaymentMethod.
+
+Определяет доступные способы оплаты:
+
+- `Card` - оплата картой.
+- `Cash` - оплата наличными.
 
 ## Модели данных (Слой данных)
 
@@ -106,26 +110,23 @@ price: number | null
 
 Определяет параметры для оформления заказа.
 
-- Класс имеет такие методы:
-  - `addProduct(product: IProduct): void` - добавляет товар в заказ.
-  - `removeProduct(product: IProduct): void` - удаляет товар из заказа.
-  - `getProducts(): IProduct[]` - возвращает массив товаров в заказе.
-  - `getProductCount(): number` - возвращает общее количество товаров в заказе.
-  - `getTotalPrice(): number` - возвращает общую стоимость всех товаров в заказе.
-- Класс имеет такие поля:
-  \_paymentMethod: string - способ оплаты (например, "credit card", "PayPal", "cash")
-  - `_address: string` - адрес доставки (строка с максимальной длиной 255 символов).
-  - `_email: string` - адрес электронной почты (должен быть в формате действительного адреса электронной почты).
-  - `_phone: string` - номер телефона (должен быть в формате "+<код страны><номер>", например, "+1234567890").
-    Доступ к полям класса осуществляется через геттеры и сеттеры:
-  - getPaymentMethod(): string - возвращает способ оплаты.
-  - setPaymentMethod(method: string): void - задает способ оплаты.
-  - getAddress(): string - возвращает адрес доставки.
-  - setAddress(address: string): void - задает адрес доставки.
-  - getEmail(): string - возвращает адрес электронной почты.
-  - setEmail(email: string): void - задает адрес электронной почты.
-  - getPhone(): string - возвращает номер телефона.
-  - setPhone(phone: string): void - задает номер телефона.
+#### Методы класса:
+
+- `getPaymentMethod(): string` - возвращает способ оплаты.
+- `setPaymentMethod(method: string): void` - задает способ оплаты.
+- `getAddress(): string - возвращает адрес` доставки.
+- `setAddress(address: string): void` - задает адрес доставки.
+- `getEmail(): string` - возвращает адрес электронной почты.
+- `setEmail(email: string): void` - задает адрес электронной почты.
+- `getPhone(): string` - возвращает номер телефона.
+- `setPhone(phone: string): void` - задает номер телефона.
+
+#### Поля класса:
+
+- `paymentMethod: string` - способ оплаты (например, "credit card", "PayPal", "cash")
+- `address: string` - адрес доставки (строка с максимальной длиной 255 символов).
+- `email: string` - адрес электронной почты (должен быть в формате действительного адреса электронной почты).
+- `phone: string` - номер телефона (должен быть в формате "+<код страны><номер>", например, "+1234567890").
 
 ## Представления (Слой представлений)
 
