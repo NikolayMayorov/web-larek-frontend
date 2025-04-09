@@ -69,55 +69,63 @@ price: number | null
 
 ## Модели данных (Слой данных)
 
-1. Класс CatalogModel
-   Определяет список всех товаров.
-   Конструктор не принимает аргументы.
+### 1. Класс CatalogModel
 
-Методы класса:
+Определяет список всех товаров.
+Конструктор не принимает аргументы.
+
+#### Методы класса:
 
 - `getProduct(id: string): IProduct | undefined` - получение товара по id
 - `getProducts(): IProduct[]` - получение массива всех товаров
 - `setProducts(products: IProduct[])` - задает массив товаров
 
-Поля класса:
+#### Поля класса:
 
 - `protected products: IProduct[]` - массив товаров
 
-2. Класс BasketModel
-   Определяет состояние и методы корзины.
-   Конструктор не принимает аргументы.
-   Методы класса:
-   `addProduct(product: IProduct): void` - добавляет товар в корзину.
-   `removeProduct(product: IProduct): void` - удаляет товар из корзины.
-   `getProducts(): IProduct[]` - возвращает массив товаров в корзине.
-   `getProductCount(): number` - возвращает общее количество товаров в корзине.
-   `getTotalPrice(): number` - возвращает общую стоимость всех товаров в корзине.
-   `clearBasket(): void` - очищает массив товаров в корзине.
-   Поля класса:
-   `protected products: IProduct[]` - массив товаров в корзине.
+### 2. Класс BasketModel
 
-3. Класс OrderDetailModel
-   Определяет параметры для оформления заказа.
-   - Класс имеет такие методы:
-     - `addProduct(product: IProduct): void` - добавляет товар в заказ.
-     - `removeProduct(product: IProduct): void` - удаляет товар из заказа.
-     - `getProducts(): IProduct[]` - возвращает массив товаров в заказе.
-     - `getProductCount(): number` - возвращает общее количество товаров в заказе.
-     - `getTotalPrice(): number` - возвращает общую стоимость всех товаров в заказе.
-   - Класс имеет такие поля:
-     \_paymentMethod: string - способ оплаты (например, "credit card", "PayPal", "cash")
-     - `_address: string` - адрес доставки (строка с максимальной длиной 255 символов).
-     - `_email: string` - адрес электронной почты (должен быть в формате действительного адреса электронной почты).
-     - `_phone: string` - номер телефона (должен быть в формате "+<код страны><номер>", например, "+1234567890").
-       Доступ к полям класса осуществляется через геттеры и сеттеры:
-     - getPaymentMethod(): string - возвращает способ оплаты.
-     - setPaymentMethod(method: string): void - задает способ оплаты.
-     - getAddress(): string - возвращает адрес доставки.
-     - setAddress(address: string): void - задает адрес доставки.
-     - getEmail(): string - возвращает адрес электронной почты.
-     - setEmail(email: string): void - задает адрес электронной почты.
-     - getPhone(): string - возвращает номер телефона.
-     - setPhone(phone: string): void - задает номер телефона.
+Определяет состояние и методы корзины.
+Конструктор не принимает аргументы.
+
+#### Методы класса:
+
+- `addProduct(product: IProduct): void` - добавляет товар в корзину.
+- `removeProduct(product: IProduct): void` - удаляет товар из корзины.
+- `getProducts(): IProduct[]` - возвращает массив товаров в корзине.
+- `getProductCount(): number` - возвращает общее количество товаров в корзине.
+- `getTotalPrice(): number` - возвращает общую стоимость всех товаров в корзине.
+- `clearBasket(): void` - очищает массив товаров в корзине.
+
+#### Поля класса:
+
+- `protected products: IProduct[]` - массив товаров в корзине.
+
+### 3. Класс OrderDetailModel
+
+Определяет параметры для оформления заказа.
+
+- Класс имеет такие методы:
+  - `addProduct(product: IProduct): void` - добавляет товар в заказ.
+  - `removeProduct(product: IProduct): void` - удаляет товар из заказа.
+  - `getProducts(): IProduct[]` - возвращает массив товаров в заказе.
+  - `getProductCount(): number` - возвращает общее количество товаров в заказе.
+  - `getTotalPrice(): number` - возвращает общую стоимость всех товаров в заказе.
+- Класс имеет такие поля:
+  \_paymentMethod: string - способ оплаты (например, "credit card", "PayPal", "cash")
+  - `_address: string` - адрес доставки (строка с максимальной длиной 255 символов).
+  - `_email: string` - адрес электронной почты (должен быть в формате действительного адреса электронной почты).
+  - `_phone: string` - номер телефона (должен быть в формате "+<код страны><номер>", например, "+1234567890").
+    Доступ к полям класса осуществляется через геттеры и сеттеры:
+  - getPaymentMethod(): string - возвращает способ оплаты.
+  - setPaymentMethod(method: string): void - задает способ оплаты.
+  - getAddress(): string - возвращает адрес доставки.
+  - setAddress(address: string): void - задает адрес доставки.
+  - getEmail(): string - возвращает адрес электронной почты.
+  - setEmail(email: string): void - задает адрес электронной почты.
+  - getPhone(): string - возвращает номер телефона.
+  - setPhone(phone: string): void - задает номер телефона.
 
 ## Представления (Слой представлений)
 
