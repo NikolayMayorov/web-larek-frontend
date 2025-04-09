@@ -72,13 +72,16 @@ price: number | null
 1. Класс CatalogModel
    Определяет список всех товаров.
    Конструктор не принимает аргументы.
-   Методы класса:
 
-   - `getProduct(id: string): IProduct | undefined` - получение товара по id
-   - `getProducts(): IProduct[]` - получение массива всех товаров
-   - `setProducts(products: IProduct[])` - задает массив товаров
-     Поля класса:
-   - `protected products: IProduct[]` - массив товаров
+Методы класса:
+
+- `getProduct(id: string): IProduct | undefined` - получение товара по id
+- `getProducts(): IProduct[]` - получение массива всех товаров
+- `setProducts(products: IProduct[])` - задает массив товаров
+
+Поля класса:
+
+- `protected products: IProduct[]` - массив товаров
 
 2. Класс BasketModel
    Определяет состояние и методы корзины.
