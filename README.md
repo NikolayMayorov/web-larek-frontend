@@ -51,13 +51,27 @@ yarn build
 
 ## Ключевые типы данных
 
-Интерфейс IProduct. Определяет свойства товара. Имеет поля:
+Интерфейс IProduct. Определяет свойства товара.
+Имеет поля:
 id: string
 description: string
 image: string
 title: string
 category: string
 price: number | null
+
+- `id: string` - уникальный идентификатор товара.
+- `description: string` - подробное текстовое описание товара.
+- `image: string` - путь или URL к изображению товара.
+
+- `title: string`  
+  Название товара.
+
+- `category: string`  
+  Категория, к которой относится товар.
+
+- `price: number | null`  
+  Цена товара. Может быть `null`, если цена отсутствует или ещё не задана.
 
 ## Модели данных (Слой данных)
 
