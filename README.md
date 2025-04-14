@@ -137,12 +137,13 @@ yarn build
 #### Поля класса:
 
 - `protected paymentMethod: PaymentMethod` - способ оплаты
-- `protected address: string` - адрес доставки.
+- `protected address: string` - адрес доставки
 - `protected email: string` - адрес электронной почты
 - `protected phone: string` - номер телефона
 
 #### Методы класса:
 
+- `createOrder(payment: string, email: string, phone: string, address: string, total: number, items: string[]): Order` - создает объект заказа
 - `getPaymentMethod(): PaymentMethod` - возвращает способ оплаты
 - `setPaymentMethod(method: PaymentMethod): void` - задает способ оплаты
 - `getAddress(): string` - возвращает адрес доставки
@@ -151,18 +152,20 @@ yarn build
 - `setEmail(email: string): void` - задает адрес электронной почты
 - `getPhone(): string` - возвращает номер телефона
 - `setPhone(phone: string): void` - задает номер телефона
-- `validateEmail(email: string): boolean` - проверяет корректность адреса электронной почты.
-- `validatePhone(phone: string): boolean` - проверяет корректность номера телефона.
-- `validateAddress(address: string): boolean` - проверяет корректность адреса доставки, например длина не меньше определенного значения.
+- `validateEmail(email: string): boolean` - проверяет корректность адреса электронной почты
+- `validatePhone(phone: string): boolean` - проверяет корректность номера телефона
+- `validateAddress(address: string): boolean` - проверяет корректность адреса доставки, например длина не меньше определенного значения
 
 ## Представления (Слой представлений)
 
 1. Класс CatalogView
    Служит для отображения всех товаров. Выводит в контейнер карточки всех товаров.
+   constructor(templateMainPage)
+   метод setProducts(products[])
 2. Класс ProductCardView
    Служит для отображения карточки товара. Выводит в контейнер выбранный товар.
    - Класс имеет такие методы:
-     addToBasket, delFromBasket - добавление и удаления товара из корзины
+     addToBasket, delFromBasket - добавление и удаления то вара из корзины
 3. Класс BasketView
    Служит для отображения списка товаров в корзине.
    - Класс имеет такие методы:
@@ -171,6 +174,12 @@ yarn build
    Служит для отображения и ввода параметров для оформления заказа.
    - Класс имеет такие методы:
      buy - оплачивание заказа (отправка заказа)
+5. Класс HeaderView
+   Служит для отображения и ввода параметров для оформления заказа.
+   - Класс имеет такие методы:
+     buy - оплачивание заказа (отправка заказа)
+     constructor(template, clickBasketHandler: Function)
+     setProductCount(count: number)
 
 ## Presenter (Слой связывания представлений и моделей)
 
