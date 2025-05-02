@@ -1,14 +1,3 @@
-### BasketModel
-
-`BasketModel` управляет функциональностью корзины покупок.
-
-```typescript
-class BasketModel extends EventEmitter implements IBasketModel {
-	// Управляет коллекцией товаров в корзине покупок
-	// Генерирует события 'basket:changed' при изменении корзины
-}
-```
-
 # Проектная работа "Веб-ларек"
 
 Стек: HTML, SCSS, TS, Webpack
