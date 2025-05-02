@@ -1,28 +1,117 @@
-import { IProduct } from '../types';
+import { IProduct, IViewProduct } from '../types';
+import { categoryClassMap, CategoryKey } from '../utils/constants';
+import { EventEmitter } from './base/events';
 
-export class Product {
-	protected itemElement: HTMLElement;
-	protected category: HTMLElement;
-	protected title: HTMLElement;
-	protected image: HTMLElement;
-	protected price: HTMLElement;
+export abstract class BaseProductView {
+	protected _productElement: HTMLElement; //карточка в целом
+	protected _titleElement: HTMLElement;
+	protected _priceElement: HTMLElement;
+	protected _id: string;
+	protected _events: EventEmitter;
 
-	//возможно нужно добавить обработичк купить/убрать из корзины
-	constructor(template: HTMLTemplateElement) {
-		this.itemElement = template.content.cloneNode(true) as HTMLElement;
-		this.category = this.itemElement.querySelector('.card__category');
-		//TODO: добавить css класс для вида категории
-		this.title = this.itemElement.querySelector('.card__title');
-		this.image = this.itemElement.querySelector('.card__image');
-		this.price = this.itemElement.querySelector('.card__price');
+	abstract render(item: IProduct): HTMLElement;
+	get id(): string {
+		return this._id || '';
+	}
+	constructor(template: HTMLTemplateElement, id: string, events: EventEmitter) {
+		this._id = id;
+		this._productElement = template.content.cloneNode(true) as HTMLElement;
+		this._titleElement = this._productElement.querySelector('.card__title');
+		this._priceElement = this._productElement.querySelector('.card__price');
+		this._events = events;
+	}
+}
+
+export class ProductCatalogView extends BaseProductView {
+	protected _imageElement: HTMLElement;
+	protected _categoryElement: HTMLElement;
+
+	constructor(template: HTMLTemplateElement, id: string, events: EventEmitter) {
+		super(template, id, events);
+		this._categoryElement =
+			this._productElement.querySelector('.card__category');
+		this._imageElement = this._productElement.querySelector('.card__image');
+	}
+	render(item: IProduct): HTMLElement {
+		this._categoryElement.textContent = item.category;
+		this._titleElement.textContent = item.title;
+		this._imageElement.setAttribute('src', item.image);
+		this._imageElement.setAttribute('alt', item.title);
+		this._priceElement.textContent = item.price
+			? `${item.price} синапсов`
+			: 'Бесценно';
+
+		this._categoryElement.classList.add(
+			categoryClassMap[item.category as CategoryKey] || 'card__category_other'
+		);
+
+		return this._productElement;
+	}
+}
+
+export class ProductPreviewView extends ProductCatalogView {
+	protected _descriptionElement: HTMLElement;
+	protected _buttonElement: HTMLButtonElement;
+	constructor(template: HTMLTemplateElement, id: string, events: EventEmitter) {
+		super(template, id, events);
+		this._descriptionElement =
+			this._productElement.querySelector('.card__text');
+		this._buttonElement = this._productElement.querySelector(
+			'.card__button'
+		) as HTMLButtonElement;
+
+		if (this._buttonElement) {
+			this._buttonElement.addEventListener('click', () =>
+				this._events.emit('productAction', { id: this._id })
+			);
+		}
 	}
 
 	render(item: IProduct): HTMLElement {
-		this.category.textContent = item.category;
-		this.title.textContent = item.title;
-		this.image.setAttribute('src', item.image);
-		this.image.setAttribute('alt', item.title);
-		this.price.textContent = item.price ? `${item.price} синапсов` : 'Бесценно';
-		return this.itemElement;
+		this._categoryElement.textContent = item.category;
+		this._titleElement.textContent = item.title;
+		this._imageElement.setAttribute('src', item.image);
+		this._imageElement.setAttribute('alt', item.title);
+		this._priceElement.textContent = item.price
+			? `${item.price} синапсов`
+			: 'Бесценно';
+
+		this._categoryElement.classList.add(
+			categoryClassMap[item.category as CategoryKey] || 'card__category_other'
+		);
+		this._descriptionElement.textContent = item.description;
+		return this._productElement;
+	}
+}
+
+export class ProductBasketView extends BaseProductView {
+	protected _deleteElement: HTMLButtonElement;
+	protected _indexElement: HTMLButtonElement;
+	constructor(
+		template: HTMLTemplateElement,
+		id: string,
+		index: number,
+		events: EventEmitter
+	) {
+		super(template, id, events);
+		this._deleteElement = this._productElement.querySelector(
+			'.card__button'
+		) as HTMLButtonElement;
+		this._indexElement = this._productElement.querySelector(
+			'.basket__item-index'
+		) as HTMLButtonElement;
+		this._indexElement.textContent = index.toString();
+
+		this._deleteElement.addEventListener('click', () => {
+			this._events.emit('basket:delete', { id: this._id });
+		});
+	}
+
+	render(item: IProduct): HTMLElement {
+		this._titleElement.textContent = item.title;
+		this._priceElement.textContent = item.price
+			? `${item.price} синапсов`
+			: 'Бесценно';
+		return this._productElement;
 	}
 }
