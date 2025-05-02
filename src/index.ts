@@ -160,6 +160,10 @@ events.on('basket:order', () => {
 	modal.render({ content: orderView.render() });
 });
 
+events.on('success:close', () => {
+	modal.close();
+});
+
 //клик по кнопке выбра способа оплаты
 events.on('order:payment', (data) => {
 	console.log('order:payment', 'index.ts');
@@ -168,10 +172,9 @@ events.on('order:payment', (data) => {
 
 //клик по кнопке "Далее"
 events.on('order:next', (data) => {
-	console.log('order:next', 'index.ts');
 	modal.close();
 	orderModel.address = (data as { address: string }).address;
-	console.log('orderModel2', orderModel);
+	//console.log('orderModel2', orderModel);
 	modal.render({ content: contactsView.render() });
 });
 
@@ -182,14 +185,13 @@ events.on('contacts:pay', () => {
 		basketModel.getTotalPrice(),
 		basketModel.products.map((item) => item.id)
 	);
-	console.log('order', order);
+	//	console.log('order', order);
 
 	api.orderProducts(order).then((data) => {
 		if (data.error) {
 			console.error('Ошибка при оформлении заказа:', data.error);
 			return;
 		}
-		console.log('orderResult', data as { id: string; total: number });
 		basketModel.clearBasket();
 		successView.total = data.total;
 		modal.render({ content: successView.render() });

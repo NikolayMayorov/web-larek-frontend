@@ -18,6 +18,10 @@ export class SuccessView {
 			this._container
 		);
 		this._events = events;
+
+		this._button.addEventListener('click', () => {
+			this._events.emit('success:close');
+		});
 	}
 
 	set total(total: number) {

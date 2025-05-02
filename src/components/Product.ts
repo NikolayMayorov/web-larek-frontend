@@ -3,7 +3,7 @@ import { categoryClassMap, CategoryKey } from '../utils/constants';
 import { EventEmitter } from './base/events';
 
 export abstract class BaseProductView {
-	protected _productElement: HTMLElement; //карточка в целом
+	protected _productElement: HTMLElement;
 	protected _titleElement: HTMLElement;
 	protected _priceElement: HTMLElement;
 	protected _id: string;
@@ -86,7 +86,7 @@ export class ProductPreviewView extends ProductCatalogView {
 
 export class ProductBasketView extends BaseProductView {
 	protected _deleteElement: HTMLButtonElement;
-	protected _indexElement: HTMLButtonElement;
+	protected _indexElement: HTMLElement;
 	constructor(
 		template: HTMLTemplateElement,
 		id: string,
@@ -99,7 +99,7 @@ export class ProductBasketView extends BaseProductView {
 		) as HTMLButtonElement;
 		this._indexElement = this._productElement.querySelector(
 			'.basket__item-index'
-		) as HTMLButtonElement;
+		) as HTMLElement;
 		this._indexElement.textContent = index.toString();
 
 		this._deleteElement.addEventListener('click', () => {

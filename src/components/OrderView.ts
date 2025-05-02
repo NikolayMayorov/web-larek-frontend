@@ -4,11 +4,9 @@ import { EventEmitter } from './base/events';
 
 export class OrderView {
 	protected _container: HTMLElement;
-	protected _address: HTMLInputElement;
-	// protected _buttonsPayment: HTMLButtonElement[];
-	protected _buttonOrder: HTMLButtonElement;
 	protected _events: EventEmitter;
-	//protected _validationAddress: Function;
+	protected _address: HTMLInputElement;
+	protected _buttonOrder: HTMLButtonElement;
 	protected _buttonCard: HTMLButtonElement;
 	protected _buttonCash: HTMLButtonElement;
 
