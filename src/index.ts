@@ -58,7 +58,11 @@ const orderModel = new OrderModel();
 
 //представления
 const basketView = new BasketView(cloneTemplate(basketTemplate), events);
-const orderView = new OrderView(cloneTemplate(orderTemplate), events);
+const orderView = new OrderView(
+	cloneTemplate(orderTemplate),
+	events,
+	orderModel.paymentMethod
+);
 const contactsView = new ContactsView(cloneTemplate(contactsTemplate), events);
 const successView = new SuccessView(cloneTemplate(successTemplate), events);
 

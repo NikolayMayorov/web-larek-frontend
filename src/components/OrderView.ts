@@ -11,7 +11,12 @@ export class OrderView {
 	protected _buttonCash: HTMLButtonElement;
 	protected _errors: HTMLElement;
 
-	constructor(container: HTMLElement, events: EventEmitter) {
+	//button_alt
+	constructor(
+		container: HTMLElement,
+		events: EventEmitter,
+		payment: PaymentMethod
+	) {
 		this._container = container;
 		this._address = ensureElement<HTMLInputElement>(
 			'.form__input',
@@ -40,12 +45,16 @@ export class OrderView {
 		});
 
 		this._buttonCash.addEventListener('click', () => {
+			this._buttonCash.classList.add('button_alt');
+			this._buttonCard.classList.remove('button_alt');
 			this._events.emit('order:payment', {
 				payment: PaymentMethod.Cash,
 			});
 		});
 
 		this._buttonCard.addEventListener('click', () => {
+			this._buttonCard.classList.add('button_alt');
+			this._buttonCash.classList.remove('button_alt');
 			this._events.emit('order:payment', {
 				payment: PaymentMethod.Card,
 			});
@@ -56,6 +65,14 @@ export class OrderView {
 				address: this._address.value,
 			});
 		});
+
+		if (payment === PaymentMethod.Cash) {
+			this._buttonCash.classList.add('button_alt');
+			this._buttonCard.classList.remove('button_alt');
+		} else {
+			this._buttonCard.classList.add('button_alt');
+			this._buttonCash.classList.remove('button_alt');
+		}
 	}
 
 	setValid(isValid: boolean, errorMsg: string): void {

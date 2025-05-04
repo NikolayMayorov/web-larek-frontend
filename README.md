@@ -209,7 +209,7 @@ contacts:inputContacts - изменение контактов
 
 #### Конструктор класса:
 
-- `constructor(container: HTMLElement, events: EventEmitter)`
+- `constructor(container: HTMLElement, events: EventEmitter, payment: PaymentMethod)`
 
 #### Поля класса:
 
