@@ -118,11 +118,10 @@ events.on('basket:delete', (data) => {
 			++index,
 			events
 		);
-		const cardBasketElement = cardBasket.render(item);
-		//передавать колбэк
-		cardBasketElement.querySelector('button').addEventListener('click', () => {
+		cardBasket.buttonClickHandler = () => {
 			events.emit('basket:delete', { id: item.id });
-		});
+		};
+		const cardBasketElement = cardBasket.render(item);
 		return cardBasketElement;
 	});
 	basketView.total = basketModel.getTotalPrice();
@@ -139,12 +138,10 @@ events.on('basket:open', () => {
 			++index,
 			events
 		);
-
-		const cardBasketElement = cardBasket.render(item);
-		//передавать колбэк
-		cardBasketElement.querySelector('button').addEventListener('click', () => {
+		cardBasket.buttonClickHandler = () => {
 			events.emit('basket:delete', { id: item.id });
-		});
+		};
+		const cardBasketElement = cardBasket.render(item);
 		return cardBasketElement;
 	});
 	basketView.total = basketModel.getTotalPrice();

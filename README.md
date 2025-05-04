@@ -172,8 +172,14 @@ contacts:inputContacts - изменение контактов
 
 #### Поля класса:
 
-- `_deleteElement: HTMLButtonElement` - кнопка удаления из корзины
 - `_indexElement: HTMLButtonElement` - порядковый номер в корзине
+- `_buttonElement` - элемент разметки кнопки
+- `_buttonClickHandler: () => void` - обработчик нажатия кнопки
+
+#### Методы класса:
+
+- `render(item: IProduct): HTMLElement` - возвращает разметку представления
+- `buttonClickHandler(handler: () => void)` - задает обработчик кнопки
 
 ### 5. Класс BasketView
 

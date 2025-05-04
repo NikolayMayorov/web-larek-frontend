@@ -104,8 +104,11 @@ export class ProductPreviewView extends ProductCatalogView {
 }
 
 export class ProductBasketView extends BaseProductView {
-	protected _deleteElement: HTMLButtonElement;
+	//	protected _deleteElement: HTMLButtonElement;
 	protected _indexElement: HTMLElement;
+	protected _buttonElement: HTMLButtonElement;
+	protected _buttonClickHandler: () => void;
+
 	constructor(
 		template: HTMLTemplateElement,
 		id: string,
@@ -113,17 +116,35 @@ export class ProductBasketView extends BaseProductView {
 		events: EventEmitter
 	) {
 		super(template, id, events);
-		this._deleteElement = this._productElement.querySelector(
-			'.card__button'
-		) as HTMLButtonElement;
+		// this._deleteElement = this._productElement.querySelector(
+		// 	'.card__button'
+		// ) as HTMLButtonElement;
 		this._indexElement = this._productElement.querySelector(
 			'.basket__item-index'
 		) as HTMLElement;
 		this._indexElement.textContent = index.toString();
 
-		this._deleteElement.addEventListener('click', () => {
-			this._events.emit('basket:delete', { id: this._id });
+		// this._deleteElement.addEventListener('click', () => {
+		// 	this._events.emit('basket:delete', { id: this._id });
+		// });
+
+		this._buttonElement = ensureElement<HTMLButtonElement>(
+			'button',
+			this._productElement
+		);
+
+		this._buttonElement.addEventListener('click', () => {
+			if (
+				this._buttonClickHandler &&
+				typeof this._buttonClickHandler === 'function'
+			) {
+				this._buttonClickHandler();
+			}
 		});
+	}
+
+	set buttonClickHandler(handler: () => void) {
+		this._buttonClickHandler = handler;
 	}
 
 	render(item: IProduct): HTMLElement {
