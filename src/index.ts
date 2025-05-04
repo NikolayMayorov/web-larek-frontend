@@ -177,7 +177,6 @@ events.on('order:next', (data) => {
 
 //клик по кнопке "Оплатить"
 events.on('contacts:pay', () => {
-	console.log('contacts:pay', 'index.ts');
 	const order = orderModel.createOrder(
 		basketModel.getTotalPrice(),
 		basketModel.products.map((item) => item.id)
@@ -205,20 +204,20 @@ events.on('order:inputAddress', (data: { address: string }) => {
 //изменение контактов
 events.on(
 	'contacts:inputContacts',
-	(data: {
-		email: HTMLInputElement;
-		phone: HTMLInputElement;
-		button: HTMLButtonElement;
-	}) => {
-		if (
-			orderModel.validateEmail(data.email.value) &&
-			orderModel.validatePhone(data.phone.value)
-		) {
-			data.button.removeAttribute('disabled');
-			orderModel.email = data.email.value;
-			orderModel.phone = data.phone.value;
+	(data: { email: string; phone: string }) => {
+		let msgError = '';
+		if (!orderModel.validateEmail(data.email)) {
+			msgError = 'Введите корректный email. ';
+		}
+		if (!orderModel.validatePhone(data.phone)) {
+			msgError += 'Введите корректный телефон.';
+		}
+		if (msgError.length === 0) {
+			contactsView.setValid(true, '');
+			orderModel.email = data.email;
+			orderModel.phone = data.phone;
 		} else {
-			data.button.setAttribute('disabled', 'true');
+			contactsView.setValid(false, msgError);
 		}
 	}
 );

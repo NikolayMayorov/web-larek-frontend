@@ -59,11 +59,17 @@ export class OrderModel implements IOrderModel {
 	}
 
 	validateEmail(email: string): boolean {
+		if (email.trim().length === 0) {
+			return false;
+		}
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegex.test(email);
 	}
 
 	validatePhone(phone: string): boolean {
+		if (phone.trim().length === 0) {
+			return false;
+		}
 		const digitsOnly = phone.replace(/\D/g, '');
 		return digitsOnly.length >= 10 && digitsOnly.length <= 15;
 	}

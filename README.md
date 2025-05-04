@@ -64,7 +64,6 @@ catalog:changed - изменение каталога, например полу
 order:payment - выбор способа оплаты заказа
 order:next - переход к шагу ввода контактных данных
 contacts:pay - нажатие кнопки Оплатить
-contacts:pay - нажатие кнопки Оплатить
 order:inputAddress - изменение адреса
 contacts:inputContacts - изменение контактов
 
@@ -242,10 +241,12 @@ contacts:inputContacts - изменение контактов
 - `_email: HTMLInputElement` - email
 - `_phone: HTMLInputElement` - телефон
 - `_buttonPay: HTMLButtonElement` - кнопка Оплатить
+- `_error: HTMLElement` - контейнер для сообщения об ошибке
 
 #### Методы класса:
 
 - `render(item: IProduct): HTMLElement` - возвращает разметку представления
+- `setValid(isValid: boolean, errorMsg: string)` - устанавливает валидность полей и сообщение об ошибке
 
 ### 8. SuccessView
 

@@ -7,6 +7,7 @@ export class ContactsView {
 	protected _email: HTMLInputElement;
 	protected _phone: HTMLInputElement;
 	protected _buttonPay: HTMLButtonElement;
+	protected _errors: HTMLElement;
 
 	constructor(container: HTMLElement, events: EventEmitter) {
 		this._container = container;
@@ -30,30 +31,36 @@ export class ContactsView {
 			this._container
 		);
 
+		this._errors = ensureElement<HTMLElement>('.form__errors', this._container);
+
 		this._buttonPay.addEventListener('click', (evt) => {
 			evt.preventDefault();
-			this._events.emit('contacts:pay', {
-				email: this._email,
-				phone: this._phone,
-				button: this._buttonPay,
-			});
+			this._events.emit('contacts:pay');
 		});
 
 		this._email.addEventListener('input', () => {
 			this._events.emit('contacts:inputContacts', {
-				email: this._email,
-				phone: this._phone,
-				button: this._buttonPay,
+				email: this._email.value,
+				phone: this._phone.value ? this._phone.value : '',
 			});
 		});
 
 		this._phone.addEventListener('input', () => {
 			this._events.emit('contacts:inputContacts', {
-				email: this._email,
-				phone: this._phone,
-				button: this._buttonPay,
+				email: this._email.value ? this._email.value : '',
+				phone: this._phone.value,
 			});
 		});
+	}
+
+	setValid(isValid: boolean, errorMsg: string): void {
+		if (isValid) {
+			this._errors.innerText = '';
+			this._buttonPay.disabled = false;
+		} else {
+			this._errors.innerText = errorMsg;
+			this._buttonPay.disabled = true;
+		}
 	}
 
 	render(): HTMLElement {
