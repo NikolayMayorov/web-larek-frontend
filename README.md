@@ -220,10 +220,12 @@ contacts:inputContacts - изменение контактов
 - `_buttonOrder: HTMLButtonElement` - кнопка Далее
 - `_buttonCard: HTMLButtonElement` - кнопка выбора способа оплаты Онлайн
 - `_buttonCash: HTMLButtonElement` - кнопка выбора способа оплаты При получении
+- `_error: HTMLElement` - контейнер для сообщения об ошибке
 
 #### Методы класса:
 
 - `render(item: IProduct): HTMLElement` - возвращает разметку представления
+- `setValid(isValid: boolean, errorMsg: string)` - устанавливает валидность полей и сообщение об ошибке
 
 ### 7. Класс ContactsView
 

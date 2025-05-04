@@ -9,6 +9,7 @@ export class OrderView {
 	protected _buttonOrder: HTMLButtonElement;
 	protected _buttonCard: HTMLButtonElement;
 	protected _buttonCash: HTMLButtonElement;
+	protected _errors: HTMLElement;
 
 	constructor(container: HTMLElement, events: EventEmitter) {
 		this._container = container;
@@ -31,6 +32,8 @@ export class OrderView {
 			this._container
 		);
 
+		this._errors = ensureElement<HTMLElement>('.form__errors', this._container);
+
 		this._buttonOrder.addEventListener('click', (evt) => {
 			evt.preventDefault();
 			this._events.emit('order:next', { address: this._address.value });
@@ -50,10 +53,19 @@ export class OrderView {
 
 		this._address.addEventListener('input', () => {
 			this._events.emit('order:inputAddress', {
-				address: this._address,
-				button: this._buttonOrder,
+				address: this._address.value,
 			});
 		});
+	}
+
+	setValid(isValid: boolean, errorMsg: string): void {
+		if (isValid) {
+			this._buttonOrder.disabled = false;
+			this._errors.innerText = '';
+		} else {
+			this._buttonOrder.disabled = true;
+			this._errors.innerText = errorMsg;
+		}
 	}
 
 	render(): HTMLElement {

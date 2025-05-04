@@ -86,6 +86,7 @@ events.on('catalog:click', (data) => {
 	cardPreview.buttonClickHandler = () => {
 		basketModel.addProduct(data as IProduct);
 		//!!!! закрыть окно
+		modal.close();
 	};
 	const cardPreviewElement = cardPreview.render(data as IProduct);
 
@@ -108,8 +109,8 @@ basketModel.on('basket:changed', (data) => {
 	page.counter = (data as IProduct[]).length;
 });
 
+//удаление товара из корзины
 events.on('basket:delete', (data) => {
-	console.log('index.ts', 'basket:delete');
 	basketModel.removeProduct(data as { id: string });
 	basketView.items = basketModel.products.map((item, index) => {
 		const cardBasket = new ProductBasketView(
@@ -171,7 +172,6 @@ events.on('order:payment', (data) => {
 events.on('order:next', (data) => {
 	modal.close();
 	orderModel.address = (data as { address: string }).address;
-	//console.log('orderModel2', orderModel);
 	modal.render({ content: contactsView.render() });
 });
 
@@ -182,8 +182,6 @@ events.on('contacts:pay', () => {
 		basketModel.getTotalPrice(),
 		basketModel.products.map((item) => item.id)
 	);
-	//	console.log('order', order);
-
 	api.orderProducts(order).then((data) => {
 		if (data.error) {
 			console.error('Ошибка при оформлении заказа:', data.error);
@@ -196,16 +194,13 @@ events.on('contacts:pay', () => {
 });
 
 //изменение адреса
-events.on(
-	'order:inputAddress',
-	(data: { address: HTMLInputElement; button: HTMLButtonElement }) => {
-		if (orderModel.validateAddress(data.address.value)) {
-			data.button.removeAttribute('disabled');
-		} else {
-			data.button.setAttribute('disabled', 'true');
-		}
+events.on('order:inputAddress', (data: { address: string }) => {
+	if (orderModel.validateAddress(data.address)) {
+		orderView.setValid(true, '');
+	} else {
+		orderView.setValid(false, 'Введите адрес доставки');
 	}
-);
+});
 
 //изменение контактов
 events.on(

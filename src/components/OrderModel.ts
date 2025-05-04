@@ -69,6 +69,6 @@ export class OrderModel implements IOrderModel {
 	}
 
 	validateAddress(address: string): boolean {
-		return address.trim().length >= 10;
+		return address.trim().length > 0;
 	}
 }
