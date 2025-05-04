@@ -66,8 +66,10 @@ const successView = new SuccessView(cloneTemplate(successTemplate), events);
 catalogModel.on('catalog:changed', (data) => {
 	page.catalog = (data as IProduct[]).map((item) => {
 		const card = new ProductCatalogView(cardCatalogTemplate, item.id, events);
+
 		const cardElement = card.render(item);
 		// Добавляем обработчик события клика на элемент карточки
+		//передавать колбэк
 		cardElement.querySelector('button').addEventListener('click', () => {
 			events.emit('catalog:click', item);
 		});
@@ -83,13 +85,19 @@ events.on('catalog:click', (data) => {
 		(data as IProduct).id,
 		events
 	);
+	cardPreview.buttonClickHandler = () => {
+		basketModel.addProduct(data as IProduct);
+	};
 	const cardPreviewElement = cardPreview.render(data as IProduct);
-	const cardButton = cardPreviewElement.querySelector('.card__button');
-	if (cardButton) {
-		cardButton.addEventListener('click', () => {
-			basketModel.addProduct(data as IProduct);
-		});
-	}
+
+	//передавать колбэк
+	// const cardButton = cardPreviewElement.querySelector('.card__button');
+
+	// if (cardButton) {
+	// 	cardButton.addEventListener('click', () => {
+	// 		basketModel.addProduct(data as IProduct);
+	// 	});
+	// }
 
 	//открываем модальное окно с карточкой товара
 	modal.render({ content: cardPreviewElement });
@@ -121,6 +129,7 @@ events.on('basket:delete', (data) => {
 			events
 		);
 		const cardBasketElement = cardBasket.render(item);
+		//передавать колбэк
 		cardBasketElement.querySelector('button').addEventListener('click', () => {
 			events.emit('basket:delete', { id: item.id });
 		});
@@ -142,6 +151,7 @@ events.on('basket:open', () => {
 		);
 
 		const cardBasketElement = cardBasket.render(item);
+		//передавать колбэк
 		cardBasketElement.querySelector('button').addEventListener('click', () => {
 			events.emit('basket:delete', { id: item.id });
 		});

@@ -150,7 +150,13 @@ contacts:inputContacts - изменение контактов
 #### Поля класса:
 
 - `_descriptionElement: HTMLElement` - описание товара
-- `_buttonElement: HTMLButtonElement` - кнопка В корзину
+- `_buttonElement` - элемент разметки кнопки В корзину
+- `_buttonClickHandler: () => void` - обработчик нажатия кнопки В корзину
+
+#### Методы класса:
+
+- `render(item: IProduct): HTMLElement` - возвращает разметку представления
+- `buttonClickHandler(handler: () => void)` - задает обработчик кнопки В корзину
 
 ### 4. Класс ProductBasketView
 

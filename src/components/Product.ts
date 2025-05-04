@@ -1,5 +1,6 @@
 import { IProduct, IViewProduct } from '../types';
 import { categoryClassMap, CategoryKey } from '../utils/constants';
+import { ensureElement } from '../utils/utils';
 import { EventEmitter } from './base/events';
 
 export abstract class BaseProductView {
@@ -52,6 +53,8 @@ export class ProductCatalogView extends BaseProductView {
 export class ProductPreviewView extends ProductCatalogView {
 	protected _descriptionElement: HTMLElement;
 	protected _buttonElement: HTMLButtonElement;
+	protected _buttonClickHandler: () => void;
+
 	constructor(template: HTMLTemplateElement, id: string, events: EventEmitter) {
 		super(template, id, events);
 		this._descriptionElement =
@@ -65,6 +68,19 @@ export class ProductPreviewView extends ProductCatalogView {
 				this._events.emit('productAction', { id: this._id })
 			);
 		}
+
+		this._buttonElement.addEventListener('click', () => {
+			if (
+				this._buttonClickHandler &&
+				typeof this._buttonClickHandler === 'function'
+			) {
+				this._buttonClickHandler();
+			}
+		});
+	}
+
+	set buttonClickHandler(handler: () => void) {
+		this._buttonClickHandler = handler;
 	}
 
 	render(item: IProduct): HTMLElement {
