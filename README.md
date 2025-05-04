@@ -138,6 +138,13 @@ contacts:inputContacts - изменение контактов
 
 - `_imageElement: HTMLElement` - изображение товара
 - `_categoryElement: HTMLElement` - категория товара
+- `_buttonElement` - элемент разметки кнопки
+- `_buttonClickHandler: () => void` - обработчик нажатия кнопки
+
+#### Методы класса:
+
+- `render(item: IProduct): HTMLElement` - возвращает разметку представления
+- `buttonClickHandler(handler: () => void)` - задает обработчик кнопки
 
 ### 3. Класс ProductPreviewView
 
@@ -150,13 +157,10 @@ contacts:inputContacts - изменение контактов
 #### Поля класса:
 
 - `_descriptionElement: HTMLElement` - описание товара
-- `_buttonElement` - элемент разметки кнопки В корзину
-- `_buttonClickHandler: () => void` - обработчик нажатия кнопки В корзину
 
 #### Методы класса:
 
 - `render(item: IProduct): HTMLElement` - возвращает разметку представления
-- `buttonClickHandler(handler: () => void)` - задает обработчик кнопки В корзину
 
 ### 4. Класс ProductBasketView
 

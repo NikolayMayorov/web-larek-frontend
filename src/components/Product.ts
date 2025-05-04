@@ -26,13 +26,34 @@ export abstract class BaseProductView {
 export class ProductCatalogView extends BaseProductView {
 	protected _imageElement: HTMLElement;
 	protected _categoryElement: HTMLElement;
+	protected _buttonElement: HTMLButtonElement;
+	protected _buttonClickHandler: () => void;
 
 	constructor(template: HTMLTemplateElement, id: string, events: EventEmitter) {
 		super(template, id, events);
 		this._categoryElement =
 			this._productElement.querySelector('.card__category');
 		this._imageElement = this._productElement.querySelector('.card__image');
+
+		this._buttonElement = ensureElement<HTMLButtonElement>(
+			'button',
+			this._productElement
+		);
+
+		this._buttonElement.addEventListener('click', () => {
+			if (
+				this._buttonClickHandler &&
+				typeof this._buttonClickHandler === 'function'
+			) {
+				this._buttonClickHandler();
+			}
+		});
 	}
+
+	set buttonClickHandler(handler: () => void) {
+		this._buttonClickHandler = handler;
+	}
+
 	render(item: IProduct): HTMLElement {
 		this._categoryElement.textContent = item.category;
 		this._titleElement.textContent = item.title;
@@ -52,35 +73,17 @@ export class ProductCatalogView extends BaseProductView {
 
 export class ProductPreviewView extends ProductCatalogView {
 	protected _descriptionElement: HTMLElement;
-	protected _buttonElement: HTMLButtonElement;
-	protected _buttonClickHandler: () => void;
 
 	constructor(template: HTMLTemplateElement, id: string, events: EventEmitter) {
 		super(template, id, events);
 		this._descriptionElement =
 			this._productElement.querySelector('.card__text');
-		this._buttonElement = this._productElement.querySelector(
-			'.card__button'
-		) as HTMLButtonElement;
 
 		if (this._buttonElement) {
 			this._buttonElement.addEventListener('click', () =>
 				this._events.emit('productAction', { id: this._id })
 			);
 		}
-
-		this._buttonElement.addEventListener('click', () => {
-			if (
-				this._buttonClickHandler &&
-				typeof this._buttonClickHandler === 'function'
-			) {
-				this._buttonClickHandler();
-			}
-		});
-	}
-
-	set buttonClickHandler(handler: () => void) {
-		this._buttonClickHandler = handler;
 	}
 
 	render(item: IProduct): HTMLElement {
